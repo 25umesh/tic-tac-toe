@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="icon" href="data:,">
+    <meta name="robots" content="noindex">
+    <!-- GitHub Pages project site friendly: uses relative asset paths. -->
+    <!-- If your site is served at /tic-tac-toe/, relative paths still work. -->
+    <style>
+        /* Minimal guard if CSS fails to load */
+        .noscript { padding: 8px; background:#fff8c5; border:1px solid #e6db55; margin:10px 0; }
+    </style>
+    <noscript>
+        <div class="noscript">This app requires JavaScript to run.</div>
+    </noscript>
+    <!-- Optional: To ensure links resolve correctly when opened from file://, keep paths relative. -->
+</head>
+<body>
+
+<div class="container">
+    <h1>TIC TAC TOE</h1>
+
+    <div class="controls">
+        <select id="mode">
+            <option value="single">Single Player</option>
+            <option value="local">Multiplayer</option>
+        </select>
+
+        <select id="playerSymbol">
+            <option value="x">X</option>
+            <option value="o">O</option>
+        </select>
+
+        <button id="startBtn">Start Game</button>
+    </div>
+
+    <div id="board" class="board"></div>
+    <div id="status" class="status"></div>
+    <div style="margin-top:10px; font-size:12px; color:#666;">GitHub Pages build: static-only, AI runs in-browser.</div>
+    <div style="margin-top:4px; font-size:12px; color:#888;">Repo: <a href="https://github.com/25umesh/tic-tac-toe" target="_blank" rel="noopener">25umesh/tic-tac-toe</a></div>
+    <div style="margin-top:4px; font-size:12px; color:#888;">App URL: <code>https://25umesh.github.io/tic-tac-toe/</code></div>
+</div>
+
+<script src="static/app.js"></script>
+</body>
+</html>

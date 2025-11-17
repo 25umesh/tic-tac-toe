@@ -79,14 +79,9 @@ async function onClick(e) {
     current = ai;
     statusEl.textContent = "AI thinking...";
 
-    let res = await fetch("/ai_move", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ board, ai })
-    });
-
-    let data = await res.json();
-    if (data.move !== null) board[data.move] = ai;
+    // Compute AI move locally (no server on GitHub Pages)
+    const move = getBestMove(board, ai, human);
+    if (move !== null) board[move] = ai;
 
     w = checkWinner(board);
     if (w) { statusEl.textContent = w + " wins!"; gameOver = true; }
@@ -110,19 +105,12 @@ function start() {
     if (mode === "single") {
         if (human === "o") {
             current = ai;
-            (async () => {
-                statusEl.textContent = "AI thinking...";
-                let res = await fetch("/ai_move", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ board, ai })
-                });
-                let data = await res.json();
-                board[data.move] = ai;
-                current = human;
-                render();
-                statusEl.textContent = "Turn: " + current;
-            })();
+            statusEl.textContent = "AI thinking...";
+            const move = getBestMove(board, ai, human);
+            if (move !== null) board[move] = ai;
+            current = human;
+            render();
+            statusEl.textContent = "Turn: " + current;
         } else {
             statusEl.textContent = "Turn: " + human;
         }
@@ -138,3 +126,41 @@ startBtn.onclick = start;
 buildBoard();
 render();
 statusEl.textContent = "Press Start";
+
+// ---------- Local AI (Minimax) implementation ----------
+function minimaxJS(b, player, aiP, humanP) {
+    const winner = checkWinner(b);
+    if (winner === aiP) return { score: 1 };
+    if (winner === humanP) return { score: -1 };
+    if (isDraw(b)) return { score: 0 };
+
+    const moves = [];
+    for (let i = 0; i < 9; i++) {
+        if (b[i] === " ") {
+            const move = { index: i };
+            b[i] = player;
+            let result;
+            if (player === aiP) result = minimaxJS(b, humanP, aiP, humanP);
+            else result = minimaxJS(b, aiP, aiP, humanP);
+            move.score = result.score;
+            b[i] = " ";
+            moves.push(move);
+        }
+    }
+
+    if (player === aiP) {
+        let best = moves[0];
+        for (const m of moves) if (m.score > best.score) best = m;
+        return best;
+    } else {
+        let best = moves[0];
+        for (const m of moves) if (m.score < best.score) best = m;
+        return best;
+    }
+}
+
+function getBestMove(b, aiP, humanP) {
+    if (checkWinner(b) || isDraw(b)) return null;
+    const best = minimaxJS(b.slice(), aiP, aiP, humanP); // slice to avoid external mutation
+    return best.index ?? null;
+}
