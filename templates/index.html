@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>TIC TAC TOE</h1>
+
+    <div class="controls">
+        <select id="mode">
+            <option value="single">Single Player</option>
+            <option value="local">Multiplayer</option>
+        </select>
+
+        <select id="playerSymbol">
+            <option value="x">X</option>
+            <option value="o">O</option>
+        </select>
+
+        <button id="startBtn">Start Game</button>
+    </div>
+
+    <div id="board" class="board"></div>
+    <div id="status" class="status"></div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

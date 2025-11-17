@@ -1,0 +1,51 @@
+body {
+    background: #eef1f5;
+    font-family: Arial;
+}
+
+.container {
+    width: 350px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+}
+
+.board {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    gap: 10px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    border-radius: 10px;
+    font-size: 42px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.cell.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.status {
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
